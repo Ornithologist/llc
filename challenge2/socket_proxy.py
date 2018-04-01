@@ -30,6 +30,9 @@ class ProxyClient(object):
         '''
         self.transport.write(msg)
 
+    def close(self):
+        self.transport.close()
+
 class ProxyProtocol(asyncio.Protocol):
     '''
     A streaming protocol
@@ -40,11 +43,14 @@ class ProxyProtocol(asyncio.Protocol):
         self.proxy_client = proxy_client
 
     def connection_made(self, transport):
-        print("[STATUS] connection made.")
+        self.transport = transport
 
     def data_received(self, data):
         '''reads data from listening port and proxies it to self.proxy_client'''
         self.proxy_client.send(data)
+
+    def connection_lost(self, exc):
+        self.transport.close()
 
 class SocketProxy(object):
     '''
@@ -71,5 +77,4 @@ class SocketProxy(object):
     def halt(self):
         '''stops all remaining tasks and perform gracefully shutdown'''
         if self.server is not None:
-            print('[STATUS] Performing graceful shutdown...')
             self.server.close()
