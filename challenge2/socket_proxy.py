@@ -58,7 +58,10 @@ class SocketProxy(object):
         self.client = ProxyClient(destination)
 
     def listen(self, port):
-        '''binds and listens to the port, meanwhile connects the client'''
+        '''
+        binds and listens to the port, meanwhile connects the client
+        @param port: the local port number to listen to
+        '''
         loop = asyncio.get_event_loop()
         listen = loop.create_server(lambda: ProxyProtocol(self.client),
                                     host='127.0.0.1', port=port)
@@ -68,4 +71,5 @@ class SocketProxy(object):
     def halt(self):
         '''stops all remaining tasks and perform gracefully shutdown'''
         if self.server is not None:
+            print('[STATUS] Performing graceful shutdown...')
             self.server.close()
