@@ -6,7 +6,7 @@ Thank you for spending time reviewing the codes. Please find below a brief descr
 
 |-|Challenge 1|Challenge 2|
 |---|---|---|
-|Source code|[garage.py](./challenge1/garage.py)|[socket_proxy.py](./challenge1/socket_proxy.py)|
+|Source code|[garage.py](./challenge1/garage.py)|[socket_proxy.py](./challenge2/socket_proxy.py)|
 |Unit test|[test.py](./challenge1/test.py)|[test.py](./challenge2/test.py)|
 |Runnable|nil|[run.py](./challenge2/run.py)|
 |Description|[README.md](./challenge1/README.md)|[README.md](./challenge2/README.md)|
