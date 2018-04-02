@@ -11,7 +11,7 @@ Thank you for spending time reviewing the codes. Please find below a brief descr
 |Runnable|nil|[run.py](./challenge2/run.py)|
 |Description|[README.md](./challenge1/README.md)|[README.md](./challenge2/README.md)|
 
-Please check the corresponding README.md file for design choices and implementation details.
+Please read the corresponding README.md file for design choices and implementation details.
 
 ## Run Instructions
 
