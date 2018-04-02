@@ -6,6 +6,8 @@ Socket type: SOCK_STREAM
 
 import asyncio
 
+HOST = '127.0.0.1'
+
 class ProxyClient(object):
     '''
     ProxyClient talks to a remote server in stream socket
@@ -70,7 +72,7 @@ class SocketProxy(object):
         '''
         loop = asyncio.get_event_loop()
         listen = loop.create_server(lambda: ProxyProtocol(self.client),
-                                    host='127.0.0.1', port=port)
+                                    host=HOST, port=port)
         self.server = loop.run_until_complete(listen)
         self.client.connect()
 

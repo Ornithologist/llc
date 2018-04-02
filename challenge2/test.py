@@ -9,11 +9,6 @@ TestClient = ProxyClient    # use ProxyClient for testing
 TEST_QUEUE = Queue()        # a testing queue
 INT_FMT = '>i'
 
-def unpack_b2i(buffer_bytes):
-    return unpack(INT_FMT, buffer_bytes)[0]
-
-def pack_i2b(number):
-    return pack(INT_FMT, number)
 
 class TestProtocol(asyncio.Protocol):
     '''
@@ -58,6 +53,12 @@ class TestServer(object):
         if self.server is not None:
             self.server.close()
 
+def unpack_b2i(buffer_bytes):
+    return unpack(INT_FMT, buffer_bytes)[0]
+
+def pack_i2b(number):
+    return pack(INT_FMT, number)
+
 def run_proxy_server(local_port, port):
     loop = asyncio.get_event_loop()
     proxy = SocketProxy(('127.0.0.1', port))
@@ -86,7 +87,7 @@ def run_test_server(port, messages):
 
 class ProxyTest(unittest.TestCase):
 
-    def test_hello(self):
+    def test_integrity(self):
         self.assertTrue(TEST_QUEUE.empty())
 
         client = TestClient(('127.0.0.1', 12345))
@@ -118,13 +119,13 @@ if __name__ == '__main__':
     server_p = Process(target=run_test_server, args=(1234, TEST_QUEUE))
     server_p.start()
 
-    time.sleep(1)  # sleep for a second
+    time.sleep(1)               # sleep for a second
 
     proxy_p = Process(target=run_proxy_server, args=(12345, 1234))
     proxy_p.start()
 
-    time.sleep(1)  # sleep for a second
-    unittest.main()
+    time.sleep(1)               # sleep for a second
+    unittest.main(exit=False)   # don't exit yet, we have to clean up
 
-    server_p.terminate()  # just terminate them =)
+    server_p.terminate()        # just terminate them =)
     proxy_p.terminate()

@@ -1,5 +1,5 @@
 '''
-Garage is a collection of parking lots which share the same booking interface;
+Garage is a collection of parking lots that share the same booking interface;
 Supported APIs are:
     get_parking_lot(duration_sec)
 
